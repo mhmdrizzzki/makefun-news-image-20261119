@@ -21,6 +21,7 @@ PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 MAX_FILE_BYTES = 1_048_576
 MAX_DIMENSION = 1024
 BIT_DEPTH_8 = 8
+VALID_COLOUR_TYPES = frozenset({0, 2, 3, 4, 6})
 SOURCE_NAME = "entry.png"
 OUTPUT_NAME = "entry.png"
 
@@ -94,15 +95,18 @@ def validate(data: bytes) -> None:
 
 
 def check_ihdr(chunk: bytes) -> None:
-    """Check the IHDR payload: dimensions and bit depth."""
+    """Check the IHDR payload: dimensions, bit depth and colour type."""
     if len(chunk) != 13:
         raise ValueError("IHDR chunk is not 13 bytes")
     width, height = struct.unpack(">II", chunk[:8])
     bit_depth = chunk[8]
+    colour_type = chunk[9]
     if width > MAX_DIMENSION or height > MAX_DIMENSION:
         raise ValueError(f"image is {width}x{height}, limit is {MAX_DIMENSION}x{MAX_DIMENSION}")
     if bit_depth != BIT_DEPTH_8:
         raise ValueError(f"pixel data is {bit_depth}-bit, expected {BIT_DEPTH_8}-bit")
+    if colour_type not in VALID_COLOUR_TYPES:
+        raise ValueError(f"IHDR colour type {colour_type} is not valid (allowed: 0, 2, 3, 4, 6)")
 
 
 def main() -> int:
