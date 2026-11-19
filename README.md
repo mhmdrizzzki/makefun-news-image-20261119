@@ -6,16 +6,16 @@
 
 An entry for make.fun's [Sum up 19 November's world news in one image](https://make.fun/bounty/news-image-20261119).
 
-The image is a single front page for that Thursday: 42 stories first reported on
-19 November 2026, three of them led with a drawing, six more in a grid, and
-another thirty-three as briefs — with a world map whose numbered pins follow the
-stories, and a **date check** box listing four stories that broke on 18 November
-and are therefore deliberately kept off the page.
+A single front page for that Thursday, built as a real one:
 
-Twelve regions and beats are covered: a three-way summit in Shenzhen, the largest
-listing on record, a cyclone emptying a coastline, a bridge struck again, a record
-auction, a UN survey, the IEA's warning on datacentres, and the day's smaller
-items from every continent.
+- **47 stories** first reported on 19 November 2026, every one carrying its UTC time
+- a navy masthead with the date, a stamped **NOV 19 2026**, and a **five-slot UTC timeline**
+- **one dominant hero** (the three-way summit in Shenzhen), two stacked side leads
+  (the record Anthropic listing, Cyclone Akvan), and seven pictogram cards
+- a world map whose numbered pins follow stories 1–10, colour-coded by region
+- **33 briefs** in three balanced columns, from every continent
+- a red **DATE CHECK** box listing four stories that broke on 18 November and are
+  therefore deliberately kept off the page
 
 ## Run it
 
@@ -25,13 +25,19 @@ mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 
 Standard library only, no network, deterministic: both runs write the same bytes.
 
-`main.py` validates `entry.png` before shipping it — PNG signature, IHDR
-dimensions and bit depth, a complete chunk walk to `IEND`, and the 1 MiB cap —
-and writes nothing at all when a check fails.
+`main.py` validates the image before shipping it — the 1 MiB cap, the PNG
+signature, a 13-byte IHDR with dimensions ≤ 1024 and bit depth 8, a permitted
+colour type, exactly one IHDR first, a chunk walk to an empty IEND and no bytes
+after it — and writes nothing at all when a check fails.
 
 ## Files
 
 - `main.py` — the entry program
-- `entry.png` — the image it ships (1024×1024)
+- `entry.png` — the image it ships (1024×1024, byte-identical to `entry_v2.png`)
+- `test_main.py` — regression tests: good image passes, truncated refused, over-size refused
+
+```sh
+python3 -m unittest -v test_main
+```
 
 Licensed MIT.

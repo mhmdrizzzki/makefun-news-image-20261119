@@ -66,7 +66,9 @@ def validate_signature(data: bytes) -> None:
 
 
 def validate(data: bytes) -> None:
-    """Validate the PNG signature, IHDR and every chunk through IEND."""
+    """Validate the PNG size, signature, IHDR and every chunk through IEND."""
+    if len(data) > MAX_FILE_BYTES:
+        raise ValueError(f"file is {len(data)} bytes, limit is {MAX_FILE_BYTES}")
     validate_signature(data)
     if len(data) < 8 + 25:
         raise ValueError("file is too short to contain an IHDR chunk")
