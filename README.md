@@ -8,14 +8,16 @@ An entry for make.fun's [Sum up 19 November's world news in one image](https://m
 
 A single front page for that Thursday, built as a real one:
 
-- **47 stories** first reported on 19 November 2026, every one carrying its UTC time
 - a navy masthead with the date, a stamped **NOV 19 2026**, and a **five-slot UTC timeline**
-- **one dominant hero** (the three-way summit in Shenzhen), two stacked side leads
-  (the record Anthropic listing, Cyclone Akvan), and seven pictogram cards
-- a world map whose numbered pins follow stories 1–10, colour-coded by region
-- **33 briefs** in three balanced columns, from every continent
-- a red **DATE CHECK** box listing four stories that broke on 18 November and are
-  therefore deliberately kept off the page
+- **one full-width hero band** — the three-way summit in Shenzhen, with the day's
+  biggest illustration and the largest type on the page
+- two side leads (the record Anthropic listing, Cyclone Akvan) and six pictogram cards
+- a world map whose numbered pins follow the numbered stories, colour-coded by region
+- twelve briefs, and a red **DATE CHECK** box listing four stories that broke on
+  18 November and are therefore deliberately kept off the page
+
+Every story carries its own UTC time. The layout favours hierarchy over density:
+one clear focal point, readable at a glance, with breadth in the briefs.
 
 ## Run it
 
